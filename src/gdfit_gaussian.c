@@ -58,7 +58,7 @@ int check_rest_set(int *e2, int *e, double *xTr, double *X, double *r, int *K1, 
         z[j-K1[g]] = crossprod(X, r, n, j) / n;
       }
       xTr[g] = norm(z, K[g]);
-      if (xTr[g] + TOLERANCE > lam * m[g] * sqrt(K[g])) {
+      if (xTr[g] + TOLERANCE > lam * m[g]) {
         e[g] = e2[g] = 1;
         violations++;
       }
@@ -78,7 +78,7 @@ int check_strong_set(int *e2, int *e, double *xTr, double *X, double *r, int *K1
         z[j-K1[g]] = crossprod(X, r, n, j) / n;
       }
       xTr[g] = norm(z, K[g]);
-      if (xTr[g] > lam * m[g] * sqrt(K[g])) {
+      if (xTr[g] > lam * m[g]) {
         e[g] = 1;
         violations++;
       }
