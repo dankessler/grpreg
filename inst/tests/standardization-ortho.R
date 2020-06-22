@@ -66,3 +66,18 @@ for (j in 1:max(g)) {
 }
 y <- rnorm(nrow(X))
 fit <- grpreg(X, y, group=LETTERS[group])
+
+# orthogonalize() orthogonalizes correctly for approx low rank
+set.seed(1)
+X <- matrix(rnorm(n*p),ncol=p)
+X[,5] <- X[,4] + rnorm(n, 0, 1e-5)
+XX <- grpreg:::orthogonalize(X, group, svd.thresh = 1e-2)
+XX0 <- grpreg:::orthogonalize(X, group)
+expect_equal(ncol(XX), 4)
+expect_equal(ncol(XX0), 5)
+for (j in 1:group[p]) {
+  ind <- which(attr(XX, "group")==j)
+  expect_equal(crossprod(XX[,ind])/n, diag(length(ind)))
+}
+y <- rnorm(nrow(X))
+fit <- grpreg(X, y, group=LETTERS[group])

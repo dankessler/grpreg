@@ -1,4 +1,4 @@
-orthogonalize <- function(X, group) {
+orthogonalize <- function(X, group, svd.thresh = 1e-10) {
   n <- nrow(X)
   J <- max(group)
   T <- vector("list", J)
@@ -8,7 +8,7 @@ orthogonalize <- function(X, group) {
     ind <- which(group==j)
     if (length(ind)==0) next
     SVD <- svd(X[, ind, drop=FALSE], nu=0)
-    r <- which(SVD$d > 1e-10)
+    r <- which(SVD$d > (svd.thresh * sqrt(n)))
     T[[j]] <- sweep(SVD$v[, r, drop=FALSE], 2, sqrt(n)/SVD$d[r], "*")
     XX[, ind[r]] <- X[, ind] %*% T[[j]]
   }

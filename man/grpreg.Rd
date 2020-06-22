@@ -72,7 +72,11 @@ tau = 1/3, group.multiplier, warn=TRUE, returnX = FALSE, ...)
     converge?  Default is TRUE.  See details.}
   \item{returnX}{Return the standardized design matrix (and associated
     group structure information)?  Default is FALSE.}
-  \item{...}{Arguments passed to other functions (such as gBridge).}
+  \item{...}{Arguments passed to other functions (such as gBridge). One
+  such argument of interest is \code{svd.thresh}: \code{grpreg}
+  orthonormalizes each group via truncated SVD; singular vectors
+  associated with singular values smaller than \code{svd.thresh} are
+  discarded.}
 }
 \details{
   There are two general classes of methods involving grouped penalties:

@@ -1,4 +1,4 @@
-newXG <- function(X, g, m, ncolY, bilevel) {
+newXG <- function(X, g, m, ncolY, bilevel, ...) {
   # Coerce X to matrix
   if (!inherits(X, "matrix")) {
     tmp <- try(X <- model.matrix(~0+., data=X), silent=TRUE)
@@ -35,7 +35,7 @@ newXG <- function(X, g, m, ncolY, bilevel) {
 
   # Group-level standardization
   if (!bilevel) {
-    XX <- orthogonalize(XX, G)
+    XX <- orthogonalize(XX, G, ...)
     g <- attr(XX, "group")
   } else {
     g <- as.integer(G)
