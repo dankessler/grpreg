@@ -1,4 +1,4 @@
-orthogonalize <- function(X, group, svd.thresh = 1e-10) {
+orthogonalize <- function(X, group, svd.thresh = 1e-10, ...) {
   n <- nrow(X)
   J <- max(group)
   T <- vector("list", J)
